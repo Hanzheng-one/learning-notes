@@ -1,49 +1,65 @@
 @echo off
-chcp 65001 >nul 2>&1
+REM ============================================================
+REM  first-push.bat  -  push this repo to GitHub for the first time
+REM ============================================================
 cd /d "%~dp0"
 
-echo ================================================
-echo  First Push to GitHub
-echo ================================================
+echo ==================================================
+echo   First Push to GitHub
+echo ==================================================
 echo.
-echo  BEFORE running this, you must create the repo:
+echo   Before running, make sure you created the repo:
 echo.
-echo    1. Open  https://github.com/new
-echo    2. Repository name : learning-notes
-echo    3. Visibility      : Public
-echo    4. IMPORTANT - leave ALL boxes UNCHECKED
-echo       (do NOT add README / .gitignore / license)
-echo    5. Click "Create repository"
+echo     1. Open    https://github.com/new
+echo     2. Name    learning-notes
+echo     3. Public
+echo     4. Leave ALL checkboxes UNCHECKED
+echo        (no README / .gitignore / license)
+echo     5. Create repository
 echo.
-echo ================================================
+echo ==================================================
 pause
 
 echo.
-echo --- Setting remote ---
+echo --- Network ---
+set GH_NET_FAIL=
+call proxy-setup.bat
+if "%GH_NET_FAIL%"=="1" goto :failed
+
+echo.
+echo --- Remote ---
 git remote remove origin 2>nul
 git remote add origin https://github.com/Hanzheng-one/learning-notes.git
 git remote -v
 
 echo.
-echo --- Renaming branch to main ---
+echo --- Branch ---
 git branch -M main
 
 echo.
 echo --- Pushing ---
-echo (a browser window may open for you to sign in)
+echo   (a browser window may open - please sign in)
 git push -u origin main
+if errorlevel 1 goto :failed
 
 echo.
-if errorlevel 1 (
-  echo ================================================
-  echo  Push FAILED. Check the message above.
-  echo ================================================
-) else (
-  echo ================================================
-  echo  Source pushed OK!
-  echo.
-  echo  Next: double-click deploy.bat to publish
-  echo  the website itself.
-  echo ================================================
-)
+echo ==================================================
+echo   SUCCESS - source code pushed.
+echo.
+echo   NEXT: double-click deploy.bat
+echo         to publish the website itself.
+echo ==================================================
+pause
+goto :eof
+
+:failed
+echo.
+echo ==================================================
+echo   FAILED - read the message above.
+echo.
+echo   Most likely causes:
+echo     - proxy app is not running
+echo     - repo not created yet, or name mismatch
+echo     - browser sign-in was cancelled
+echo ==================================================
 pause
