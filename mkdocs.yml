@@ -1,0 +1,62 @@
+site_name: 学习指北
+site_description: 学习笔记 · 成果可视化 · 复习回顾
+site_author: Holmes-Xi
+
+# ⚠️ 必须改成你自己的地址，否则搜索和链接会出错
+site_url: https://Hanzheng-one.github.io/learning-notes/
+repo_url: https://github.com/Hanzheng-one/learning-notes
+repo_name: learning-notes
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+
+markdown_extensions:
+  - admonition
+  - tables
+  - footnotes
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - 首页: index.md
+  - 学习笔记:
+      - 总览: notes/index.md
+      - STM32 GPIO 输出模式: notes/2026-10-14-stm32-gpio.md
+  - 学习成果: projects/index.md
+  - 复习回顾: review/index.md

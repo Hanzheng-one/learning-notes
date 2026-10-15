@@ -1,0 +1,18 @@
+# MkDocs 构建产物（由 mkdocs gh-deploy 自动生成，不需要提交）
+site/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
